@@ -73,7 +73,20 @@ exports.getAdminProducts = catchAsyncErrors(async (req, res, next) => {
     products,
   });
 });
-
+// get product by ID-
+exports.getItemByID=catchAsyncErrors(async (req, res, next) => {
+const product=await product.findById();
+if(Product){
+  res.status(200).json({
+    message:"success"
+  })
+}
+else{
+  res.status(500).json({
+    message:"Internal Server Error"
+  })
+}
+});
 // Get Product Details
 exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
