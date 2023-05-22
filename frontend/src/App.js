@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { ReactNavbar } from "overlay-navbar";
+import logo from "./images/logo.png";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// const options = {
+ 
+// };
 
-export default App;
+const Header = () => {
+  return <ReactNavbar
+  burgerColorHover= "#eb4034"
+  logo={logo}
+  logoWidth= "20vmax"
+  navColor1= "white"
+  logoHoverSize= "10px"
+  logoHoverColor= "#eb4034"
+  link1Text= "Home"
+  link2Text= "Products"
+  link3Text= "Contact"
+  link4Text= "About"
+  link1Url= "/"
+  link2Url= "/products"
+  link3Url= "/contact"
+  link4Url= "/about"
+  link1Size= "1.3vmax"
+  link1Colo= "rgba(35, 35, 35,0.8)"
+  nav1justifyContent= "flex-end"
+  nav2justifyContent= "flex-end"
+  nav3justifyContent= "flex-start"
+  nav4justifyContent= "flex-start"
+  link1ColorHover= "#eb4034"
+  link1Margin= "1vmax"
+  profileIconUrl= "/login"
+  profileIconColor= "rgba(35, 35, 35,0.8)"
+  searchIconColor= "rgba(35, 35, 35,0.8)"
+  cartIconColor= "rgba(35, 35, 35,0.8)"
+  profileIconColorHover= "#eb4034"
+  searchIconColorHover= "#eb4034"
+  cartIconColorHover= "#eb4034"
+  cartIconMargin= "1vmax"
+   />;
+};
+
+export default Header;
