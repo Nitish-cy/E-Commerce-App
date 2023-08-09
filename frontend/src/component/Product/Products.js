@@ -6,16 +6,51 @@ import { useParams } from 'react-router-dom';
 
 import Loader from "../layout/Loader/Loader";
 import ProductCard from "../home/ProductCard";
+import Pagination from "react-js-pagination";
+import Slider from "@material-ui/core/Slider";
+import { useAlert } from "react-alert";
+import Typography from "@material-ui/core/Typography";
+import MetaData from "../layout/MetaData";
+
+const categories = [
+  "Laptop",
+  "Footwear",
+  "Bottom",
+  "Tops",
+  "Attire",
+  "Camera",
+  "SmartPhones",
+];
 const Products = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 25000]);
+  const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState(0);
+
   const dispatch = useDispatch();
   const { keyword } = useParams();
+  const alert=useAlert();
   const {
     products,
-    loading
+    loading,
+    error,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount
   } = useSelector((state) => state.products);
+//for current pope value
+  const setCurrentPageNo = (e) => {
+    setCurrentPage(e);
+  };
+//for price handler
+  const priceHandler = (event, newPrice) => {
+    setPrice(newPrice);
+  };
+
   useEffect(() => {
-    dispatch(getProduct())
-  }, [dispatch,keyword]);
+    dispatch(getProduct(keyword,currentPage,price,category,ratings))
+  }, [dispatch,keyword,currentPage,price,category,ratings,alert,error]);
+  //let count=filteredProductsCount;
   return (
     <Fragment>
     {loading ? (
@@ -31,8 +66,7 @@ const Products = () => {
               <ProductCard key={product._id} product={product} />
             ))}
         </div>
-
-        {/* <div className="filterBox">
+         <div className="filterBox">
           <Typography>Price</Typography>
           <Slider
             value={price}
@@ -43,7 +77,7 @@ const Products = () => {
             max={25000}
           />
 
-          <Typography>Categories</Typography>
+           <Typography>Categories</Typography>
           <ul className="categoryBox">
             {categories.map((category) => (
               <li
@@ -55,7 +89,6 @@ const Products = () => {
               </li>
             ))}
           </ul>
-
           <fieldset>
             <Typography component="legend">Ratings Above</Typography>
             <Slider
@@ -68,9 +101,9 @@ const Products = () => {
               min={0}
               max={5}
             />
-          </fieldset>
-        </div>
-        {resultPerPage < count && (
+          </fieldset> 
+        </div> 
+        {resultPerPage < productsCount && (
           <div className="paginationBox">
             <Pagination
               activePage={currentPage}
@@ -86,8 +119,8 @@ const Products = () => {
               activeClass="pageItemActive"
               activeLinkClass="pageLinkActive"
             />
-          </div> */}
-        {/* )} */}
+          </div> 
+         )}
       </Fragment>
     )}
   </Fragment>

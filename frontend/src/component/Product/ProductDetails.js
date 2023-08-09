@@ -7,6 +7,7 @@ import {clearErrors,getProductDetails} from "../../actions/productAction";
 import { useParams } from 'react-router-dom';
 import Loader  from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import MetaData from "../layout/MetaData";
 function ProductDetails() {
   const dispatch = useDispatch();
   const { id } = useParams(); // Access the route parameter 'id'
@@ -25,7 +26,7 @@ function ProductDetails() {
       <Loader />
     ) : (
       <Fragment>
-        {/* <MetaData title={`${product.name} -- ECOMMERCE`} /> */}
+        <MetaData title={`${product.name} -- ECOMMERCE`} />
         <div className="ProductDetails">
           <div>
             <Carousel>
