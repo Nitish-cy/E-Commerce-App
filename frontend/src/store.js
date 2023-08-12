@@ -5,10 +5,12 @@ import {
    productsReducer,
    productDetailsReducer,
    } from "./reducers/productReducer";
+import { userReducer } from "./reducers/userReducer";
 
 const reducer = combineReducers({
    products: productsReducer,
    productDetails: productDetailsReducer,
+   user:userReducer,
 });
 
 let initialState = {};
