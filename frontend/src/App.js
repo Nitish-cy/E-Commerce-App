@@ -13,6 +13,8 @@ import { loadUser } from "./actions/userAction";
 import UserOptions from "./component/layout/header/UserOptions";
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile.js";
+import UpdateProfile from "./component/User/UpdateProfile";
+import UpdatePassword from "./component/User/UpdatePassword.js";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
 
 import store from "./store";
@@ -25,16 +27,17 @@ useEffect(() => {
     <Router>
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/" element={<Search />} />
         <Route exact path="/login" element={<LoginSignUp></LoginSignUp>} />
-        <Route path="/account" element={<ProtectedRoute component={Profile} />} />
+        <Route exact path="/account" element={<Profile></Profile>} />
+        <Route exact path="/me/update" element={<UpdateProfile></UpdateProfile>} />
+        <Route exact path="/password/update" element={<UpdatePassword></UpdatePassword>} />
+        {/* <Route path="/account" element={<ProtectedRoute component={Profile} />} />must resolve */}
       </Routes>
       <Footer />
     </Router>
