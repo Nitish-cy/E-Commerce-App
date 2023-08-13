@@ -21,17 +21,33 @@ import Cart from "./component/Cart/Cart.js";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
 import Shipping from "./component/Cart/Shipping.js";
 import ConfirmOrder from "./component/Cart/ConfirmOrder";
+import Payment from "./component/Cart/Payment.js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import OrderSuccess from "./component/Cart/OrderSuccess";
+import axios from "axios";
 
 import store from "./store";
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
+  const [stripeApiKey, setStripeApiKey] = useState("");
+
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey");
+
+    setStripeApiKey(data.stripeApiKey);
+    console.log('Mishra ji stirpe data '+data.stripeApiKey)
+  }
+
 useEffect(() => {
     store.dispatch(loadUser());
+    getStripeApiKey();
   }, []);
   return (
     <Router>
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetail />} />
@@ -48,7 +64,15 @@ useEffect(() => {
         <Route exact path="/cart" element={<Cart></Cart>} />
         <Route exact path="/shipping" element={<Shipping></Shipping>} />
         <Route exact path="/order/confirm" element={<ConfirmOrder></ConfirmOrder>} />
+        {/* <Route exact path="/process/payment" element={<Payment></Payment>} /> */}
         {/* <Route path="/account" element={<ProtectedRoute component={Profile} />} />must resolve */}
+       
+          <Route exact path="/process/payment" element={
+            <Elements stripe={loadStripe(stripeApiKey)}>
+              <Payment />
+            </Elements>
+          }/>
+           <Route exact path="/success" element={<OrderSuccess></OrderSuccess>} />
       </Routes>
       <Footer />
     </Router>
