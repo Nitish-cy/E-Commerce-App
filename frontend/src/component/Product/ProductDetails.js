@@ -8,10 +8,34 @@ import { useParams } from 'react-router-dom';
 import Loader  from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
 import MetaData from "../layout/MetaData";
+import { addItemsToCart } from "../../actions/cartAction";
+
 function ProductDetails() {
+  const [quantity, setQuantity] = useState(1);
+  //const match = useMatch(); 
   const dispatch = useDispatch();
+  const alert = useAlert();
   const { id } = useParams(); // Access the route parameter 'id'
   const { product, loading, error } = useSelector((state) => state.productDetails);
+  
+  const increaseQuantity = () => {
+    if (product.Stock <= quantity) return;
+
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+
+  const decreaseQuantity = () => {
+    if (1 >= quantity) return;
+
+    const qty = quantity - 1;
+    setQuantity(qty);
+  };
+  const addToCartHandler = () => {
+    dispatch(addItemsToCart(id, quantity));
+    alert.success("Item Added To Cart");
+  };
+
 
   useEffect(() => {
     if (error) {
@@ -57,14 +81,14 @@ function ProductDetails() {
             <div className="detailsBlock-3">
               <h1>{`₹${product.price}`}</h1>
               <div className="detailsBlock-3-1">
-                <div className="detailsBlock-3-1-1">
-                  <button >-</button>
-                  <input readOnly type="number" value={1} />
-                  <button >+</button>
-                </div>
+              <div className="detailsBlock-3-1-1">
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type="number" value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
+                  </div>
                 <button
                   disabled={product.Stock < 1 ? true : false}
-                 
+                  onClick={addToCartHandler}
                 >
                   Add to Cart
                 </button>

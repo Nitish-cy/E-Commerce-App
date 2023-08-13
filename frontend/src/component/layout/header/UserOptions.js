@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UserOptions = ({ user }) => {
  const navigate = useNavigate();
-  //const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector((state) => state.cart);
   const [open, setOpen] = useState(false);
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -22,6 +22,15 @@ const UserOptions = ({ user }) => {
   const options = [
     { icon: <ListAltIcon />, name: "Orders", func: orders },
     { icon: <PersonIcon />, name: "Profile", func: account },
+    {
+      icon: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
 

@@ -17,7 +17,10 @@ import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword";
 import ForgotPassword from "./component/User/ForgotPassword";
 import ResetPassword from "./component/User/ResetPassword.js";
+import Cart from "./component/Cart/Cart.js";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
+import Shipping from "./component/Cart/Shipping.js";
+import ConfirmOrder from "./component/Cart/ConfirmOrder";
 
 import store from "./store";
 function App() {
@@ -41,6 +44,10 @@ useEffect(() => {
         <Route exact path="/password/update" element={<UpdatePassword></UpdatePassword>} />
         <Route exact path="/password/forgot" element={<ForgotPassword></ForgotPassword>} />
         <Route exact path="/password/reset/:token" element={<ResetPassword></ResetPassword>} />
+        <Route exact path="/password/reset/:token" element={<ResetPassword></ResetPassword>} />
+        <Route exact path="/cart" element={<Cart></Cart>} />
+        <Route exact path="/shipping" element={<Shipping></Shipping>} />
+        <Route exact path="/order/confirm" element={<ConfirmOrder></ConfirmOrder>} />
         {/* <Route path="/account" element={<ProtectedRoute component={Profile} />} />must resolve */}
       </Routes>
       <Footer />
