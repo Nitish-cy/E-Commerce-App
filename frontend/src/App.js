@@ -24,7 +24,9 @@ import ConfirmOrder from "./component/Cart/ConfirmOrder";
 import Payment from "./component/Cart/Payment.js";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import OrderSuccess from "./component/Cart/OrderSuccess";
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
+import MyOrders from "./component/Order/MyOrders.js";
+import OrderDetails from "./component/Order/OrderDetails";
 import axios from "axios";
 
 import store from "./store";
@@ -73,6 +75,8 @@ useEffect(() => {
             </Elements>
           }/>
            <Route exact path="/success" element={<OrderSuccess></OrderSuccess>} />
+           <Route exact path="/orders" element={<MyOrders></MyOrders>} />
+           <Route exact path="/order/:id" element={<OrderDetails></OrderDetails>} />
       </Routes>
       <Footer />
     </Router>
