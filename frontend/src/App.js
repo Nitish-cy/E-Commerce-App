@@ -31,6 +31,12 @@ import Dashboard from "./component/Admin/Dashboard.js";
 import ProductList from "./component/Admin/ProductList.js";
 import NewProduct from "./component/Admin/NewProduct";
 import UpdateProduct from "./component/Admin/UpdateProduct.js";
+import OrderList from "./component/Admin/OrderList.js";
+import ProcessOrder from "./component/Admin/ProcessOrder.js";
+import UsersList from "./component/Admin/UsersList.js";
+import UpdateUser from "./component/Admin/UpdateUser.js";
+import ProductReviews from "./component/Admin/ProductReviews.js";
+import NotFound from "./component/layout/Notfound/NotFound";
 import axios from "axios";
 
 import store from "./store";
@@ -42,8 +48,9 @@ function App() {
     const { data } = await axios.get("/api/v1/stripeapikey");
 
     setStripeApiKey(data.stripeApiKey);
-    console.log('Mishra ji stirpe data '+data.stripeApiKey)
   }
+//block inspecting
+  window.addEventListener("contextmenu", (e) => e.preventDefault());
 
 useEffect(() => {
     store.dispatch(loadUser());
@@ -107,6 +114,45 @@ useEffect(() => {
           isAdmin={true}
           element={<UpdateProduct></UpdateProduct>}
         />
+         <Route
+          exact
+          path="/admin/orders"
+          isAdmin={true}
+          element={<OrderList></OrderList>}
+        />
+         <Route
+          exact
+          path="/admin/order/:id"
+          isAdmin={true}
+          element={<ProcessOrder></ProcessOrder>}
+        />
+
+      <Route
+          exact
+          path="/admin/users"
+          isAdmin={true}
+          element={<UsersList></UsersList>}
+        />
+      <Route
+          exact
+          path="/admin/user/:id"
+          isAdmin={true}
+          element={<UpdateUser></UpdateUser>}
+        />
+        
+        <Route
+          exact
+          path="/admin/reviews"
+          isAdmin={true}
+          element={<ProductReviews></ProductReviews>}
+        />
+
+    <Route
+      path="/process/payment"
+      element={
+        window.location.pathname === "/process/payment" ? null : <NotFound />
+      }
+    />
       </Routes>
       <Footer />
     </Router>

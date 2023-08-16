@@ -50,7 +50,7 @@ const UpdateProduct = () => {
     "SmartPhones",
   ];
 
-  const productId = id;
+  const productId = id.id;
 
   useEffect(() => {
     if (product && product._id !== productId) {

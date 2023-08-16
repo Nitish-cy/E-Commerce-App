@@ -15,9 +15,9 @@ const Dashboard = () => {
 
   const { products } = useSelector((state) => state.products);
 
-  // const { orders } = useSelector((state) => state.allOrders);
+  const { orders } = useSelector((state) => state.allOrders);
 
-  // const { users } = useSelector((state) => state.allUsers);
+   const { users } = useSelector((state) => state.allUsers);
 
   let outOfStock = 0;
 
@@ -30,15 +30,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getAdminProduct());
-  //  dispatch(getAllOrders());
-  //  dispatch(getAllUsers());
+   dispatch(getAllOrders());
+  dispatch(getAllUsers());
   }, [dispatch]);
 
-  // let totalAmount = 0;
-  // orders &&
-  //   orders.forEach((item) => {
-  //     totalAmount += item.totalPrice;
-  //   });
+  let totalAmount = 0;
+  orders &&
+    orders.forEach((item) => {
+      totalAmount += item.totalPrice;
+    });
 
   // const lineState = {
   //   labels: ["Initial Amount", "Amount Earned"],
@@ -65,42 +65,43 @@ const Dashboard = () => {
   return (
 
     <div className="dashboard">
-      <MetaData title="Dashboard - Admin Panel" />
-      <Sidebar />
+    <MetaData title="Dashboard - Admin Panel" />
+    <Sidebar />
 
-      <div className="dashboardContainer">
-        <Typography component="h1">Dashboard</Typography> 
+    <div className="dashboardContainer">
+      <Typography component="h1">Dashboard</Typography>
 
-        <div className="dashboardSummary">
-          <div>
-            <p>
-              Total Amount <br /> 50            </p>
-          </div>
-          <div className="dashboardSummaryBox2">
-            <Link to="/admin/prod">
-              <p>Product</p>
-              <p>{products && products.length}</p> 
-            </Link>
-            <Link to="/admin/orders">
-              <p>Orders</p>
-              <p>30</p>
-            </Link>
-            <Link to="/admin/users">
-              <p>Users</p>
-              <p>4</p>
-            </Link>
-          </div>
+      <div className="dashboardSummary">
+        <div>
+          <p>
+            Total Amount <br /> ₹{totalAmount}
+          </p>
         </div>
-
-        {/* <div className="lineChart">
-          <Line data={lineState} />
+        <div className="dashboardSummaryBox2">
+          <Link to="/admin/products">
+            <p>Product</p>
+            <p>{products && products.length}</p>
+          </Link>
+          <Link to="/admin/orders">
+            <p>Orders</p>
+            <p>{orders && orders.length}</p>
+          </Link>
+          <Link to="/admin/users">
+            <p>Users</p>
+            <p>{users && users.length}</p>
+          </Link>
         </div>
-
-        <div className="doughnutChart">
-          <Doughnut data={doughnutState} />
-        </div> */}
       </div>
+
+      {/* <div className="lineChart">
+        <Line data={lineState} />
+      </div>
+
+      <div className="doughnutChart">
+        <Doughnut data={doughnutState} />
+      </div> */}
     </div>
+  </div>
   )
 }
 
