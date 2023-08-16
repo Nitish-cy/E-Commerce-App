@@ -27,6 +27,10 @@ import { loadStripe } from "@stripe/stripe-js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js";
 import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails";
+import Dashboard from "./component/Admin/Dashboard.js";
+import ProductList from "./component/Admin/ProductList.js";
+import NewProduct from "./component/Admin/NewProduct";
+import UpdateProduct from "./component/Admin/UpdateProduct.js";
 import axios from "axios";
 
 import store from "./store";
@@ -77,6 +81,32 @@ useEffect(() => {
            <Route exact path="/success" element={<OrderSuccess></OrderSuccess>} />
            <Route exact path="/orders" element={<MyOrders></MyOrders>} />
            <Route exact path="/order/:id" element={<OrderDetails></OrderDetails>} />
+
+           <Route
+           isAdmin={true}
+          exact
+          path="/admin/dashboard"
+          element={<Dashboard></Dashboard>}
+        />
+         <Route
+          exact
+          path="/admin/products"
+          isAdmin={true}
+          element={<ProductList></ProductList>}
+        />
+
+      <Route
+          exact
+          path="/admin/product"
+          isAdmin={true}
+          element={<NewProduct></NewProduct>}
+        />
+        <Route
+          exact
+          path="/admin/product/:id"
+          isAdmin={true}
+          element={<UpdateProduct></UpdateProduct>}
+        />
       </Routes>
       <Footer />
     </Router>
