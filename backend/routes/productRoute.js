@@ -9,7 +9,7 @@ router.route("/products").get(getAllProducts);
 
 // router.route("/product/:id").put(updateProduct).delete(deleteProduct).get(getProductDetails);
 
-// router.route("/product/:id").get(getProductDetails);
+ router.route("/product/:id").get(getProductDetails);
 
 //const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
 
